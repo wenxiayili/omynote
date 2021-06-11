@@ -4,8 +4,8 @@
 
 集成多种平台的读书笔记，纸质书支持 OCR 文字识别，让你集中管理搜索笔记。记录阅读时间，了解自己的阅读统计信息，激励自己养成阅读习惯。不管是学生党还是上班族，它将会是所有爱书人的绝佳阅读伴侣！
 
-![](./img/info1.png)
-![](./img/info2.png)
+![](https://webserver-1256209664.cos.ap-shanghai.myqcloud.com/omynote/info1.png)
+![](https://webserver-1256209664.cos.ap-shanghai.myqcloud.com/omynote/info2.png)
 
 ## 主要功能
 
@@ -18,11 +18,9 @@
 
 ## 下载
 
-目前 iOS 版已上架 App Store，扫描以下二维码或搜索「众山小」即可下载。
+iOS 及安卓版已发布，扫描二维码免费下载
 
-![](./img/appstore.png)
-
-安卓版正在开发中，感兴趣的书虫可以在[官网](https://omynote.com)邮件订阅一下更新情况。
+![](https://webserver-1256209664.cos.ap-shanghai.myqcloud.com/omynote/pcqr.png)
 
 ## 社区与反馈
 
