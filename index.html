@@ -43,6 +43,7 @@
       background-color: #FAFBFF;
       color: #7B8095;
       font-family: Roboto;
+      padding: 0 10px;
     }
     .img-panel {
       display: inline-block;
@@ -111,6 +112,15 @@
       tr {
         margin: 100px 0;
       }
+      #download-table th {
+        display: none;
+      }
+      #download-table tr {
+        margin: 0;
+      }
+      #download-table td {
+        margin: 20px 0;
+      }
       .title img {
         margin-bottom: 0;
       }
@@ -178,7 +188,7 @@
       margin-bottom: 10px;
       font-size: 24px;
     }
-    h3 {
+    h3, th {
       font-size: 16px;
     }
     .preview {
@@ -332,20 +342,27 @@
 
     <div class="date">
       <h2 id="download">下载</h2>
-      <div style="display: flex; justify-content: center; margin-bottom: 10px;">
-        <div style="padding: 0 10px">
-          <h3>iOS</h3>
-          <a href="https://apps.apple.com/cn/app/%E4%BC%97%E5%B1%B1%E5%B0%8F-%E9%9B%86%E4%B8%AD%E7%AE%A1%E7%90%86%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/id1472521517">
-            <img src="./img/download-ios.svg">
-          </a>
-          <div>或在 App Store 搜索「众山小」</div>
-        </div>
-        <div style="padding: 0 10px">
-          <h3>安卓</h3>
-          <div>预计上架日期：2021 年 8 月</div>
-        </div>
-      </div>
-      <div>未来还可能计划开发桌面版等平台</div>
+      <img id="pcqr" src="./img/pcqr.png" style="display: block; width: 120px; margin: 10px auto;">
+      <table id="download-table" style="margin: 10px auto">
+        <tr>
+          <th>iOS</th>
+          <th>安卓</th>
+        </tr>
+        <tr style="vertical-align: top;">
+          <td>
+            <a href="javascript:;" onclick="downloadIos()">
+              <img src="./img/download-ios.svg">
+            </a>
+            <div>或在 App Store 搜索「众山小」</div>
+          </td>
+          <td>
+            <a href="javascript:;" onclick="downloadAndroid()">
+              <img src="./img/download-android.svg">
+            </a>
+          </td>
+        </tr>
+      </table>
+      <div>其他平台正在计划开发中</div>
 
       <h2 id="contact">
         反馈意见
@@ -387,12 +404,19 @@
         // iPad on iOS 13 detection
         || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
       }
+      function isAndroid() {
+        return navigator.userAgent.toLowerCase().indexOf('android') > -1;
+      }
       if (location.search.indexOf('auto-download') > -1) {
-        setTimeout(function () {
           if (isIOS()) {
-            location.href = 'https://apps.apple.com/cn/app/%E4%BC%97%E5%B1%B1%E5%B0%8F-%E9%9B%86%E4%B8%AD%E7%AE%A1%E7%90%86%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/id1472521517';
+            downloadIos();
           }
-        }, 1000);
+          else if (isAndroid()) {
+            downloadAndroid();
+          }
+      }
+      if (isIOS() || isAndroid()) {
+        document.getElementById('pcqr').style.display = 'none';
       }
 
       var captcha;
@@ -463,6 +487,22 @@
         xmlHttp.open('post', 'https://umeecorn.com/notebook/promotion/register');
         xmlHttp.setRequestHeader('Content-Type', 'application/json');
         xmlHttp.send(JSON.stringify(data));
+      }
+
+      function downloadAndroid() {
+        var version = '1.1.3';
+        gtag('event', 'download_android', {version: version});
+        _hmt.push(['_trackEvent', 'download', 'download_android', version]);
+        setTimeout(function () {
+          location.href = 'https://webserver-1256209664.cos.ap-shanghai.myqcloud.com/omynote/android/omynote-' + version + '.apk'
+        }, 2000);
+      }
+      function downloadIos() {
+        gtag('event', 'download_ios');
+        _hmt.push(['_trackEvent', 'download', 'download_ios']);
+        setTimeout(function () {
+          location.href = 'https://apps.apple.com/cn/app/%E4%BC%97%E5%B1%B1%E5%B0%8F-%E9%9B%86%E4%B8%AD%E7%AE%A1%E7%90%86%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/id1472521517';
+        }, 2000);
       }
     </script>
   </div>
