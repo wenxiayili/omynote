@@ -492,17 +492,26 @@
       function downloadAndroid() {
         var version = '1.1.3';
         gtag('event', 'download_android', {version: version});
-        _hmt.push(['_trackEvent', 'download', 'download_android', version]);
+        _hmt.push(['_trackEvent', 'download', 'download_android', getRef()]);
         setTimeout(function () {
           location.href = 'https://webserver-1256209664.cos.ap-shanghai.myqcloud.com/omynote/android/omynote-' + version + '.apk'
         }, 2000);
       }
       function downloadIos() {
         gtag('event', 'download_ios');
-        _hmt.push(['_trackEvent', 'download', 'download_ios']);
+        _hmt.push(['_trackEvent', 'download', 'download_ios', getRef()]);
         setTimeout(function () {
           location.href = 'https://apps.apple.com/cn/app/%E4%BC%97%E5%B1%B1%E5%B0%8F-%E9%9B%86%E4%B8%AD%E7%AE%A1%E7%90%86%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/id1472521517';
         }, 2000);
+      }
+      function getRef() {
+        try {
+          var params = Object.fromEntries(new URLSearchParams(location.search).entries());
+          return params && params.ref;
+        }
+        catch (e) {
+          return '';
+        }
       }
     </script>
   </div>
