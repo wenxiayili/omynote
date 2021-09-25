@@ -88,6 +88,11 @@
     td.text img {
       margin-bottom: 10px;
     }
+    #download-hint {
+      display: none;
+      font-size: 16px;
+      color: #4853A7;
+    }
     @media screen and (max-width: 600px) {
       tr, td {
         display: block;
@@ -192,11 +197,13 @@
       font-size: 16px;
     }
     .preview {
-      width: 90%;
       max-width: 800px;
       text-align: center;
       margin: 0 auto;
       margin-top: 120px;
+    }
+    .preview img {
+      margin-bottom: 10px;
     }
     .download-title {
       margin-top: 20px;
@@ -342,27 +349,30 @@
 
     <div class="date">
       <h2 id="download">下载</h2>
-      <img id="pcqr" src="./img/pcqr.png" style="display: block; width: 120px; margin: 10px auto;">
-      <table id="download-table" style="margin: 10px auto">
-        <tr>
-          <th>iOS</th>
-          <th>安卓</th>
-        </tr>
-        <tr style="vertical-align: top;">
-          <td>
-            <a href="javascript:;" onclick="downloadIos()">
-              <img src="./img/download-ios.svg">
-            </a>
-            <div>或在 App Store 搜索「众山小」</div>
-          </td>
-          <td>
-            <a href="javascript:;" onclick="downloadAndroid()">
-              <img src="./img/download-android.svg">
-            </a>
-          </td>
-        </tr>
-      </table>
-      <div>其他平台正在计划开发中</div>
+      <div id="download-panel">
+        <img id="pcqr" src="./img/pcqr.png" style="display: block; width: 120px; margin: 10px auto;">
+        <div id="download-hint">如果点下载没反应，请用浏览器打开本网页</div>
+        <table id="download-table" style="margin: 10px auto">
+          <tr>
+            <th>iOS</th>
+            <th>安卓</th>
+          </tr>
+          <tr style="vertical-align: top;">
+            <td>
+              <a href="javascript:;" onclick="downloadIos()">
+                <img src="./img/download-ios.svg">
+              </a>
+              <div>或在 App Store 搜索「众山小」</div>
+            </td>
+            <td>
+              <a href="javascript:;" onclick="downloadAndroid()">
+                <img src="./img/download-android.svg">
+              </a>
+            </td>
+          </tr>
+        </table>
+        <div>其他平台正在计划开发中</div>
+      </div>
 
       <h2 id="contact">
         反馈意见
@@ -402,10 +412,17 @@
           'iPod'
         ].includes(navigator.platform)
         // iPad on iOS 13 detection
-        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+        || (navigator.userAgent.includes('Mac') && 'ontouchend' in document)
       }
       function isAndroid() {
         return navigator.userAgent.toLowerCase().indexOf('android') > -1;
+      }
+      function isThirdPartyEnv() {
+        var ua = navigator.userAgent.toLowerCase();
+        return ua.indexOf('micromessenger') > -1 || ua.indexOf('weibo') > -1 || ua.indexOf('qq') > -1;
+      }
+      if (isThirdPartyEnv()) {
+        document.getElementById('download-hint').style.display = 'block';
       }
       if (location.search.indexOf('auto-download') > -1) {
           if (isIOS()) {
